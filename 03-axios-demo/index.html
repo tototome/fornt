@@ -14,15 +14,15 @@
       // 一级域名和二级域名不同才会跨域 三级域名不同不会跨域
       // 跨域的定义：阻止JS 将跨域请求获得的结果加载到浏览器 因为可能会有会由恶意代码注入
       axios({
-        method: 'get',
-        url: 'http://localhost:8080/user/all',
+        method: "get",
+        url: "http://localhost:8080/user/all",
       })
         .then((response) => {
-          console.log('获取数据成功', response)
+          console.log("获取数据成功", response);
         })
         .catch((error) => {
-          console.log('获取数据失败', error)
-        })
+          console.log("获取数据失败", error);
+        });
     </script>
   </body>
 </html>
