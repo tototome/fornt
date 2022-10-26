@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 运行在服务器端 -->
+    <script type="module">
+      import * as a from "./a.js";
+      import * as b from "./b.js";
+      console.log(a.name);
+      console.log(b.name);
+      import { star, see } from "./m1.js";
+      import {star as m2,see as m2s} from './m2.js'
+      console.log(star)
+      see()
+      console.log(m2)
+      m2s()
+    </script>
+  </body>
+</html>
