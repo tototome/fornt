@@ -9,6 +9,10 @@
     <script src="axios.js"></script>
     <script>
       //基于promise
+      // 发送请求的位置 在浏览器中 调试网络中有请求是浏览器客户端发送请求
+      //  端口号不同 协议不同 域名不同 跨域cookie是不共享的
+      // 一级域名和二级域名不同才会跨域 三级域名不同不会跨域
+      // 跨域的定义：阻止JS 将跨域请求获得的结果加载到浏览器 因为可能会有会由恶意代码注入
       axios({
         method: 'get',
         url: 'http://localhost:8080/user/all',
