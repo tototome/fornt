@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="vue.js"></script>
+  </head>
+  <body>
+    <!-- 计算属性使用的缓存（内存里里面的数据所以只会执行一次） -->
+    <div id="app">
+      {{pri()}}<br />
+      {{pri()}}<br />
+      {{pri()}}<br />
+      {{prit}}<br/>
+      {{prit}}<br/>
+      {{prit}}<br/>
+      {{prit}}<br/>
+      
+     
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            message: "baidu",
+          };
+        },
+        methods: {
+          jump() {
+            alert("jump baidu");
+          },
+          pri() {
+            console.log("方法渲染数据");
+            return this.message + ".com";
+          },
+        },
+        computed: {
+            prit:{
+            get(){
+                console.log("get被调用")
+                return this.message+'.baidu'
+            },
+            set(value){
+                console.log("set被调用")
+                
+            }
+        }
+        }
+      });
+    </script>
+  </body>
+</html>

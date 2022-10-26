@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id = "app">
+      姓：<input type="text" placeholder="姓" v-model="lastName"/><br />
+      名：<input type="text" placeholder="名" v-model="firstName"/><br />
+      姓名：<input type="text" placeholder="姓名" v-model="fullName"/><br />
+  </div>
+  <script src="vue.js"></script>
+  <script>
+    new Vue({
+      el:'#app',
+      data () {
+        return {
+            lastName:'张',
+            firstName:'三'
+        }
+      },
+      computed: {
+        fullName:{
+            get(){
+                console.log("get被调用")
+                return this.lastName + " " +this.firstName
+            },
+            set(value){
+                console.log("set被调用")
+                let names = value.split(' ');    
+                this.firstName = names[1]
+                this.lastName = names[0]
+            }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
