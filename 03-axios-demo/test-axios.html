@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="axios.js"></script>
+    <script>
+      const request = axios.create({
+        baseURL: "http://localhost:8080", //url前缀
+        timeout: 1000, //超时时间
+        headers: { token: "helen123456" }, //携带令牌
+      });
+
+      request({
+        method: "get",
+        url: "/user/all",
+      })
+        .then((response) => {
+          console.log("获取数据成功", response);
+        })
+        .catch((error) => {
+          console.log("获取数据失败", error);
+        });
+    </script>
+  </body>
+</html>

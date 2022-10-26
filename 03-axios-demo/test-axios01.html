@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="axios.js"></script>
+    <script>
+      const request = axios.create({
+        baseURL: "http://localhost:8080", //url前缀
+        timeout: 1000, //超时时间
+      });
+      //请求拦截器在发送请求前对请求进行处理
+      request.interceptors.request.use(
+        function (config) {
+          // 在发送请求之前做些什么，例如：在请求头中携带一个令牌
+          config.headers.token = "helen";
+          return config;
+        },
+        function (error) {
+          // 对请求错误做些什么
+          return Promise.reject(error);
+        }
+      );
+
+      request({
+        method: "get",
+        url: "/user/all",
+      })
+        .then((response) => {
+          console.log("获取数据成功", response);
+        })
+        .catch((error) => {
+          console.log("获取数据失败", error);
+        });
+    </script>
+  </body>
+</html>
