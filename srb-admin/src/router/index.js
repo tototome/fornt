@@ -78,6 +78,28 @@ export const constantRoutes = [
   },
 
   {
+    path: '/core/interal-grade',
+    component: Layout,
+    redirect: '/core/interal-grade/list',
+    name: 'coreInteralGrade',
+    meta: { title: '积分等级管理', icon: 'el-icon-user-solid' },
+    children: [
+      {
+        path: 'list',
+        name: 'coreInteralGradeList',
+        component: () => import('@/views/core/interal-grade/list'),
+        meta: { title: '积分等级列表', icon: 'el-icon-s-grid' }
+      },
+      {
+        path: 'create', 
+        name: 'coreInteralGradeCreate',
+        component: () => import('@/views/core/interal-grade/from'),
+        meta: { title: '新增积分等级', icon: 'el-icon-s-grid' }
+      }
+    ]
+  },
+
+  {
     path: '/form',
     component: Layout,
     children: [
