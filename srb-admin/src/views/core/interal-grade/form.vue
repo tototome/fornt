@@ -68,7 +68,6 @@ export default {
     },
     back() {
       this.$router.push("/core/interal-grade/list");
-      
     },
   },
 };
