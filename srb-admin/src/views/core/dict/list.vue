@@ -40,17 +40,28 @@
         <el-button @click="dialogVisible = false"> 取消 </el-button>
       </div>
     </el-dialog>
+    <el-table :data="list" border row-key="id" lazy :load="load">
+      <el-table-column label="名称" align="left" prop="name" />
+      <el-table-column label="编码" prop="dictCode" />
+      <el-table-column label="值" align="left" prop="value" />
+    </el-table>
   </div>
 </template>
 <script>
-// import { defineComponent } from '@vue/composition-api'
+import dictApi from '@/api/core/dict.js'
+
+
 
 export default {
   data() {
-    return {
+   return {
       dialogVisible: false,
-      BASE_API: "http://localhost:8110",
+      BASE_API: process.env.VUE_APP_BASE_API, //获取后端接口地址
+      list: [],
     };
+  },
+  created () {
+    this.fetchData();
   },
   methods: {
     fileUploadExceed() {
@@ -64,8 +75,18 @@ export default {
       alert("上传失败");
     },
     exportData() {
-    window.location.href = this.BASE_API + '/admin/core/dict/export'
-}
+      window.location.href = this.BASE_API + "/admin/core/dict/export";
+    },
+    load(row,treeNode,resolve){
+      dictApi.getDictListByParentId(row.id).then((response)=>{
+        resolve(response.data.list);
+      })
+    },
+    fetchData(){
+      dictApi.getDictListByParentId(1).then((response)=>{
+        this.list=response.data.list;
+      })
+    }
   },
 };
 </script>

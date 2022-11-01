@@ -103,6 +103,7 @@ export const constantRoutes = [
         name: "coreInteralGradeEdit",
         component: () => import("@/views/core/interal-grade/form"),
         meta: { title: "积分等级修改", icon: "el-icon-s-grid" },
+        hidden:true
       }
     
     ],
