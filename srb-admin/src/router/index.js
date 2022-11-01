@@ -107,7 +107,22 @@ export const constantRoutes = [
     
     ],
   },
-
+  {
+    path: "/core/dict",
+    component: Layout,
+    redirect: "/core/dict/list",
+    name: "coreDict",
+    meta: { title: "系统设置", icon: "el-icon-setting" },
+    alwaysShow:true,
+    children: [
+      {
+        path: "list",
+        name: "coreDictList",
+        component: () => import("@/views/core/dict/list"),
+        meta: { title: "数据字典列表", icon: "el-icon-s-grid" },
+      },
+    ],
+  },
   {
     path: "/form",
     component: Layout,
