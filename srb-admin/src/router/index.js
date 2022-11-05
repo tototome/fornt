@@ -99,6 +99,7 @@ export const constantRoutes = [
         meta: { title: "新增积分等级", icon: "el-icon-s-grid" },
       },
       {
+        // 
         path: "edit/:id",
         name: "coreInteralGradeEdit",
         component: () => import("@/views/core/interal-grade/form"),
