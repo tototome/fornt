@@ -4,7 +4,14 @@ import { normalizeURL } from '@nuxt/ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _88d7b224 = () => interopDefault(import('..\\node_modules\\@nuxt\\vue-app\\template\\pages\\index.vue' /* webpackChunkName: "" */))
+const _7488b0e4 = () => interopDefault(import('..\\pages\\invest.vue' /* webpackChunkName: "pages/invest" */))
+const _77b04fb8 = () => interopDefault(import('..\\pages\\lend\\index.vue' /* webpackChunkName: "pages/lend/index" */))
+const _9050290c = () => interopDefault(import('..\\pages\\user.vue' /* webpackChunkName: "pages/user" */))
+const _501b6bc8 = () => interopDefault(import('..\\pages\\user\\index.vue' /* webpackChunkName: "pages/user/index" */))
+const _4d1e6fba = () => interopDefault(import('..\\pages\\user\\account.vue' /* webpackChunkName: "pages/user/account" */))
+const _33670703 = () => interopDefault(import('..\\pages\\welcome.vue' /* webpackChunkName: "pages/welcome" */))
+const _43c821e6 = () => interopDefault(import('..\\pages\\lend\\lend.vue' /* webpackChunkName: "pages/lend/lend" */))
+const _01674ab3 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -23,8 +30,37 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
-    path: "",
-    component: _88d7b224
+    path: "/invest",
+    component: _7488b0e4,
+    name: "invest"
+  }, {
+    path: "/lend",
+    component: _77b04fb8,
+    name: "lend"
+  }, {
+    path: "/user",
+    component: _9050290c,
+    children: [{
+      path: "",
+      component: _501b6bc8,
+      name: "user"
+    }, {
+      path: "account",
+      component: _4d1e6fba,
+      name: "user-account"
+    }]
+  }, {
+    path: "/welcome",
+    component: _33670703,
+    name: "welcome"
+  }, {
+    path: "/lend/lend",
+    component: _43c821e6,
+    name: "lend-lend"
+  }, {
+    path: "/",
+    component: _01674ab3,
+    name: "index"
   }],
 
   fallback: false

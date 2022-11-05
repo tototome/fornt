@@ -1,7 +1,51 @@
 [
   {
-    "name": "",
-    "path": "",
-    "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\node_modules\\\\@nuxt\\\\vue-app\\\\template\\\\pages\\\\index.vue"
+    "name": "invest",
+    "path": "/invest",
+    "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\pages\\\\invest.vue",
+    "chunkName": "pages/invest"
+  },
+  {
+    "name": "lend",
+    "path": "/lend",
+    "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\pages\\\\lend\\\\index.vue",
+    "chunkName": "pages/lend/index"
+  },
+  {
+    "path": "/user",
+    "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\pages\\\\user.vue",
+    "chunkName": "pages/user",
+    "children": [
+      {
+        "name": "user",
+        "path": "",
+        "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\pages\\\\user\\\\index.vue",
+        "chunkName": "pages/user/index"
+      },
+      {
+        "name": "user-account",
+        "path": "account",
+        "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\pages\\\\user\\\\account.vue",
+        "chunkName": "pages/user/account"
+      }
+    ]
+  },
+  {
+    "name": "welcome",
+    "path": "/welcome",
+    "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\pages\\\\welcome.vue",
+    "chunkName": "pages/welcome"
+  },
+  {
+    "name": "lend-lend",
+    "path": "/lend/lend",
+    "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\pages\\\\lend\\\\lend.vue",
+    "chunkName": "pages/lend/lend"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\IT\\\\Desktop\\\\JavaWeb\\\\fornt\\\\study\\\\nuxt-app\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
   }
 ]
