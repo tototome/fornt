@@ -20,14 +20,16 @@
           <li class="telNumber">
             <span class="dis">手机号码</span>
             <input class="input" v-model="userInfo.mobile" />
+
             <button v-if="!sending" class="button" @click="send()">
               获取验证码
             </button>
+
             <button v-else disabled class="button disabled">
               {{ leftSecond }}秒后重发
             </button>
           </li>
-
+            
           <li>
             <span class="dis">短信验证码</span>
             <input class="input" v-model="userInfo.code" />
@@ -79,7 +81,7 @@
 </template>
 
 <script>
-import '~/assets/css/register.css'
+import "~/assets/css/register.css";
 export default {
   data() {
     return {
@@ -88,20 +90,51 @@ export default {
         userType: 1,
       },
       sending: false, // 是否发送验证码
-      second: 10, // 倒计时间
+      second: 60, // 倒计时间
       leftSecond: 0, //剩余时间
-    }
+    };
   },
 
   methods: {
     //发短信
-    send() {},
+    send() {
+        // 调用倒计时
+      this.timeDown();
+      // 发送异步请求到微服务
+      this.$axios
+        .get("/api/sms/sendRegisterCode/" + this.userInfo.mobile)
+        .then((response) => {
+          this.$message.success("发送成功");
+        });
+      
+      
+    },
 
     //倒计时
-    timeDown() {},
+    timeDown() {
+      this.sending = true;
+      this.leftSecond = this.second;
+      let timer = setInterval(() => {
+        this.leftSecond--;
+        if(this.leftSecond<=0){
+          this.sending=false;
+          clearInterval(timer)
+        }
+      },1000);
+    },
 
     //注册
-    register() {},
+    register() {
+      // 提交后台注册
+      this.$axios
+        .post("/api/core/userInfo/register", this.userInfo)
+        .then((response) => {
+          this.$message.success("注册成功");
+          this.step = 2;
+        });
+
+    },
+
   },
-}
+};
 </script>
