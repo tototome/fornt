@@ -90,7 +90,7 @@ export default {
         userType: 1,
       },
       sending: false, // 是否发送验证码
-      second: 60, // 倒计时间
+      second: 10, // 倒计时间
       leftSecond: 0, //剩余时间
     };
   },

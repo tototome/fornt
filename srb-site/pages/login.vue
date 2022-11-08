@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import '~/assets/css/register.css'
-import cookie from 'js-cookie'
+import "~/assets/css/register.css";
+import cookie from "js-cookie";
 
 export default {
   data() {
@@ -43,12 +43,23 @@ export default {
         userType: 1,
       },
       isValid: true, //表单校验是否成功
-    }
+    };
   },
 
   methods: {
-    //登录
-    login() {},
+    //登录 登陆页面有几个action 发送的请求是同步请求还是异步请求
+    // 只有一个行为 登陆 使用的是异步请求 请求成功 跳转页面
+    //不加$是http的响应报文
+    // 加$自动取出报文中data
+    // post("/api/core/userInfo/login",this.userInfo) 注意参数传递
+    // 发送请求的时候注意参数的传递
+    login() {
+      this.$axios.$post("/api/core/userInfo/login",this.userInfo).then((response) => {
+        this.$message.success("登陆成功");
+        cookie.set("userInfo", response.data.userInfoVO);
+        window.location.href="/user";
+      });
+    },
   },
-}
+};
 </script>
