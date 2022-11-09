@@ -39,6 +39,7 @@ module.exports = {
 
   axios: {
     // Axios options here
+    //baseURL: 'http://192.168.2.118',
     baseURL: 'http://localhost',
   },
 
