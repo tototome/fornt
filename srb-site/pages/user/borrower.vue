@@ -221,7 +221,7 @@ export default {
       incomeList: [], //月收入列表
       returnSourceList: [], //还款来源列表
       contactsRelationList: [], //联系人关系
-      uploadUrl: BASE_API + "/api/oss/file/upload", //文件上传地址
+      uploadUrl: BASE_API + "/api/oss/file/uploadImage", //文件上传地址
     };
   },
 
@@ -235,25 +235,29 @@ export default {
       this.active = 1;
     },
     getBorrowerStatusByUserId() {
-      this.$axios.$get("/api/core/borrower/getBorrowerStatusByUserId").then(response=>{
-        this.borrowerStatus=response.data.borrowerStatus;
-        if(this.borrowerStatus===0){
-          this.active=0;
-          //初始化下拉框
-          this.initSelect();
-        }
-        if(this.borrowerStatus===1){
-          this.active=1;
-        }
-        if(this.borrowerStatus===2){
-          this.active=2;
-        }
-      });
+      this.$axios
+        .$get("/api/core/borrower/getBorrowerStatusByUserId")
+        .then((response) => {
+          this.borrowerStatus = response.data.borrowerStatus;
+          if (this.borrowerStatus === 0) {
+            this.active = 0;
+            //初始化下拉框
+            this.initSelect();
+          }
+          if (this.borrowerStatus === 1) {
+            this.active = 1;
+          }
+          if (this.borrowerStatus === 2) {
+            this.active = 2;
+          }
+        });
     },
-    initSelect(){
-      this.$axios.$get("/api/core/dict/getDictListByDictCode/education").then(response=>{
-        this.educationList = response.data.list;
-      })
+    initSelect() {
+      this.$axios
+        .$get("/api/core/dict/getDictListByDictCode/education")
+        .then((response) => {
+          this.educationList = response.data.list;
+        });
       this.$axios
         .$get("/api/core/dict/getDictListByDictCode/industry")
         .then((response) => {
@@ -273,6 +277,60 @@ export default {
         .$get("/api/core/dict/getDictListByDictCode/relation")
         .then((response) => {
           this.contactsRelationList = response.data.list;
+        });
+    },
+    onUploadSuccessIdCard1(response, file) {
+      let imageType = "idCard1";
+      let imageName = file.name;
+      let imageUrl = response.data.url;
+     this.onUploadSuccess(imageType, imageName, imageUrl);
+    },
+    onUploadSuccessIdCard2(response, file) {
+      //alert("国徽面上传成功");
+      let imageType = "idCard2";
+      let imageName = file.name;
+      let imageUrl = response.data.url;
+      this.onUploadSuccess(imageType, imageName, imageUrl);
+    },
+     onUploadSuccessCar(response, file) {
+      //alert("car上传成功");将url等信息保存到
+      let imageType = "car";
+      let imageName = file.name;
+      let imageUrl = response.data.url;
+      this.onUploadSuccess(imageType, imageName, imageUrl);
+    },
+    onUploadSuccessHouse(response, file) {
+      //alert("house上传成功");
+      let imageType = "house";
+      let imageName = file.name;
+      let imageUrl = response.data.url;
+      this.onUploadSuccess(imageType, imageName, imageUrl);
+    },
+    onUploadSuccess(imageType, imageName, imageUrl) {
+      this.borrower.borrowerAttachList.push({
+        imageUrl: imageUrl,
+        imageName: imageName,
+        imageType: imageType,
+      });
+    },
+    onUploadRemove(file, fileList) {
+      // alert("删除图片");
+      this.$axios
+        .$delete("/api/oss/file/removeFile?url=" + file.response.data.url)
+        .then((response) => {
+          this.$message.success("删除成功");
+          // 页面borrower对象中也要删除
+          this.borrower.borrowerAttachList = this.borrower.borrowerAttachList.filter(function(borrowerAttach){
+                return file.response.data.url != borrowerAttach.imageUrl;
+          })
+          console.log("attach", this.borrower);
+        });
+    },
+
+    save(){
+      this.$axios.$post("/api/core/borrower/save",this.borrower).then((response) => {
+          this.$message.success("保存成功");
+          this.active = 1;
         });
     }
   },
