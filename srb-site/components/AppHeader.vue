@@ -121,7 +121,7 @@ export default {
     //显示用户信息
     showInfo() {
       let userInfo=cookie.get("userInfo");
-      if (userInfo&&userInfo!=="unfined"&&userInfo!=="null"){
+      if (userInfo&&userInfo!=="undefined"&&userInfo!=="null"){
          this.userInfo = JSON.parse(userInfo);
       }
     },
