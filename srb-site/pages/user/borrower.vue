@@ -199,6 +199,11 @@
           >
           </el-alert>
         </div>
+        <NuxtLink to="/user/apply" v-if="borrowerStatus === 2">
+          <el-button style="margin-top: 20px" type="success">
+            我要借款
+          </el-button>
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -283,7 +288,7 @@ export default {
       let imageType = "idCard1";
       let imageName = file.name;
       let imageUrl = response.data.url;
-     this.onUploadSuccess(imageType, imageName, imageUrl);
+      this.onUploadSuccess(imageType, imageName, imageUrl);
     },
     onUploadSuccessIdCard2(response, file) {
       //alert("国徽面上传成功");
@@ -292,7 +297,7 @@ export default {
       let imageUrl = response.data.url;
       this.onUploadSuccess(imageType, imageName, imageUrl);
     },
-     onUploadSuccessCar(response, file) {
+    onUploadSuccessCar(response, file) {
       //alert("car上传成功");将url等信息保存到
       let imageType = "car";
       let imageName = file.name;
@@ -320,19 +325,23 @@ export default {
         .then((response) => {
           this.$message.success("删除成功");
           // 页面borrower对象中也要删除
-          this.borrower.borrowerAttachList = this.borrower.borrowerAttachList.filter(function(borrowerAttach){
-                return file.response.data.url != borrowerAttach.imageUrl;
-          })
+          this.borrower.borrowerAttachList = this.borrower.borrowerAttachList.filter(
+            function(borrowerAttach) {
+              return file.response.data.url != borrowerAttach.imageUrl;
+            }
+          );
           console.log("attach", this.borrower);
         });
     },
 
-    save(){
-      this.$axios.$post("/api/core/borrower/save",this.borrower).then((response) => {
+    save() {
+      this.$axios
+        .$post("/api/core/borrower/save", this.borrower)
+        .then((response) => {
           this.$message.success("保存成功");
           this.active = 1;
         });
-    }
+    },
   },
 };
 </script>
