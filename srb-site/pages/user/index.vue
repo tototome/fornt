@@ -109,7 +109,8 @@ data() {
         console.log(JSON.parse(userInfo))
          //this.userInfo = JSON.parse(userInfo);
          this.nickName = JSON.parse(userInfo).nickName;
-         this.status=JSON.parse(userInfo).status;
+         this.status=JSON.parse(userInfo).bingStatus;
+         console.log(this.status)
       }
     },
   },

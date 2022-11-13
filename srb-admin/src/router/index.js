@@ -146,6 +146,19 @@ export const constantRoutes = [
         meta: { title: "借款人详情", icon: "el-icon-s-grid" },
         hidden: true,
       },
+      {
+        path: "info-list",
+        name: "coreBorrowInfoList",
+        component: () => import("@/views/core/borrow-info/list"),
+        meta: { title: "借款信息列表", icon: "el-icon-s-grid" },
+      },
+      {
+        path: "info-detail/:id",
+        name: "coreBorrowInfoList",
+        component: () => import("@/views/core/borrow-info/detail"),
+        meta: { title: "借款信息详情", icon: "el-icon-s-grid" },
+        hidden: true,
+      },
     ],
   },
 

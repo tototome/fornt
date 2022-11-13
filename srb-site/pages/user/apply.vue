@@ -133,5 +133,66 @@ export default {
       moneyUseList: [], //资金用途列表
     };
   },
+  watch: {
+    "borrowInfo.amount"() {
+      if (this.borrowInfo.amount > this.borrowAmount) {
+        this.borrowInfo.amount = this.borrowAmount;
+      }
+      if (this.borrowInfo.amount < 0) {
+        this.borrowInfo.amount = 0;
+      }
+    },
+  },
+  mounted() {
+    this.getBorrowInfoStatusByUserId();
+  },
+  methods: {
+    getBorrowInfoStatusByUserId() {
+      this.$axios
+      // 异步执行注意代码的位置 判断条件写到外面就会出现赋值没起作用的情况
+        .$get("/api/core/borrowerInfo/getBorrowInfoStatusByUserId")
+        .then((response) => {
+          this.borrowInfoStatus = response.data.borrowInfoStatus;
+          if (this.borrowInfoStatus === 0) {
+            this.active = 0;
+            // 初始化下拉框
+            this.initSelect();
+            this.getBorrowAmount();
+          }
+          if (this.borrowInfoStatus === 1) {
+            this.active = 1;
+          }
+          if (this.borrowInfoStatus === 2) {
+            this.active = 2;
+          }
+        });
+    },
+    initSelect() {
+      this.$axios
+        .$get("/api/core/dict/getDictListByDictCode/returnMethod")
+        .then((response) => {
+          this.returnMethodList = response.data.list;
+        });
+      this.$axios
+        .$get("/api/core/dict/getDictListByDictCode/moneyUse")
+        .then((response) => {
+          this.moneyUseList = response.data.list;
+        });
+    },
+    getBorrowAmount() {
+      this.$axios
+        .$get("/api/core/borrowerInfo/getBorrowAmount")
+        .then((response) => {
+          this.borrowAmount = response.data.borrowAmount;
+        });
+    },
+    save() {
+      this.$axios
+        .$post("/api/core/borrowerInfo/auth/save", this.borrowInfo)
+        .then((response) => {
+          this.active = 1;
+        });
+    },
+  },
 };
 </script>
