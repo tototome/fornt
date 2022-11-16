@@ -89,14 +89,15 @@
 </template>
 <script>
 import borrowInfoApi from "@/api/core/borrow-info.js";
-
+import '@/styles/show.css'
 export default {
   data() {
     return {
       borrowInfoDetail: {
         borrower: {},
         borrowInfo: {
-          param: {},
+          amount:0,
+          param:{},
         },
       },
     };

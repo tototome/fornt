@@ -19,12 +19,12 @@
         <div class="user-info">
           <ul>
             <li>
-              用户名<span>{{nickName}}</span>
+              用户名<span>{{ nickName }}</span>
               <NuxtLink v-if="$parent.userType === 2" to="/user/borrower">
                 立即借款
               </NuxtLink>
             </li>
-            <li v-if="status===0">
+            <li v-if="status === 0">
               您还未开通第三方支付账户，请
               <NuxtLink to="/user/bind">立即开通</NuxtLink>
               以确保您的正常使用和资金安全。
@@ -56,13 +56,13 @@
             <span class="truemoney"><i class="f26 fb c-pink">0.00 </i> 元</span>
           </li>
         </ul>
-        <ul>
+        <ul v-else >
           <li class="none">
             <span>
               <em>账户余额</em>
               <i class="markicon"></i>
             </span>
-            <span class="truemoney"><i class="f26 fb">0.00 </i> 元</span>
+            <span class="truemoney"><i class="f26 fb">{{0.00 }}</i> 元</span>
           </li>
           <li>
             <span>
@@ -85,35 +85,33 @@
 </template>
 
 <script>
-import cookie from 'js-cookie'
+import cookie from "js-cookie";
 export default {
-data() {
+  data() {
     return {
       //userInfo: null,
       nickName: null,
-      status:0
-    }
+      status: 0,
+    };
   },
 
-  created () {
-    this.showInfo()
-  
+  mounted() {
+    this.showInfo();
   },
 
   methods: {
     //显示用户信息
     showInfo() {
-      let userInfo=cookie.get("userInfo");
+      let userInfo = cookie.get("userInfo");
       console.log("userinfo-------");
-      if (userInfo && userInfo !== "undefined" && userInfo!=="null"){
-        console.log(JSON.parse(userInfo))
-         //this.userInfo = JSON.parse(userInfo);
-         this.nickName = JSON.parse(userInfo).nickName;
-         this.status=JSON.parse(userInfo).bingStatus;
-         console.log(this.status)
+      if (userInfo && userInfo !== "undefined" && userInfo !== "null") {
+        console.log(JSON.parse(userInfo));
+        //this.userInfo = JSON.parse(userInfo);
+        this.nickName = JSON.parse(userInfo).nickName;
+        this.status = JSON.parse(userInfo).bingStatus;
+        console.log(this.status);
       }
     },
   },
-
-}
+};
 </script>

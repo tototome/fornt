@@ -92,7 +92,7 @@ export default {
         "提示信息：您即将前往第三方金融平台开通账户",
         "框体标题：汇付宝跳转",
         {
-            dangerouslyUseHTMLString: true,
+          dangerouslyUseHTMLString: true,
           confirmButtonText: "立即前往",
           callback: (action) => {
             if (action === "confirm") {

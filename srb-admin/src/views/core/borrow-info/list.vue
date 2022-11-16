@@ -39,27 +39,92 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 审批对话框 -->
+    <el-dialog title="审批" :visible.sync="dialogVisible" width="490px">
+      <el-form label-position="right" label-width="100px">
+        <el-form-item label="是否通过">
+          <el-radio-group v-model="borrowInfoApproval.status">
+            <el-radio :label="2">通过</el-radio>
+            <el-radio :label="-1">不通过</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item v-if="borrowInfoApproval.status == 2" label="标的名称">
+          <el-input v-model="borrowInfoApproval.title" />
+        </el-form-item>
+
+        <el-form-item v-if="borrowInfoApproval.status == 2" label="起息日">
+          <el-date-picker
+            v-model="borrowInfoApproval.lendStartDate"
+            type="date"
+            placeholder="选择开始时间"
+            value-format="yyyy-MM-dd"
+          />
+        </el-form-item>
+
+        <el-form-item v-if="borrowInfoApproval.status == 2" label="年化收益率">
+          <el-input v-model="borrowInfoApproval.lendYearRate">
+            <template slot="append">%</template>
+          </el-input>
+        </el-form-item>
+
+        <el-form-item v-if="borrowInfoApproval.status == 2" label="服务费率">
+          <el-input v-model="borrowInfoApproval.serviceRate">
+            <template slot="append">%</template>
+          </el-input>
+        </el-form-item>
+
+        <el-form-item v-if="borrowInfoApproval.status == 2" label="标的描述">
+          <el-input v-model="borrowInfoApproval.lendInfo" type="textarea" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false"> 取消 </el-button>
+        <el-button type="primary" @click="approvalSubmit"> 确定 </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
-import borrowInfoApi from '@/api/core/borrow-info.js'
+import borrowInfoApi from "@/api/core/borrow-info.js";
 
 export default {
-    data () {
-        return {
-            list:[]
-        }
+  data() {
+    return {
+      list: [],
+      dialogVisible: false,
+      borrowInfoApproval: {
+        status: 2,
+        serviceRate: 5,
+        lendYearRate: 0, //初始化，解决表单中数据修改时无法及时渲染的问题
+      }, //审批对象
+    };
+  },
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      borrowInfoApi.getList().then((response) => {
+        this.list = response.data.list;
+      });
     },
-    created () {
-        this.fetchData();
+    approvalShow(row) {
+      this.dialogVisible = true;
+      this.borrowInfoApproval.id = row.id;
+      this.borrowInfoApproval.lendYearRate = row.borrowYearRate * 100;
     },
-    methods: {
-      fetchData(){
-        borrowInfoApi.getList()
+    approvalSubmit(){
+        borrowInfoApi.approval(this.borrowInfoApproval)
         .then((response)=>{
-            this.list=response.data.list
+                //关闭弹窗
+                this.dialogVisible=false;
+                
+                this.$message.success(response.message);
+                //刷新数据
+                this.fetchData(); 
         })
-      }  
     }
-}
+  },
+};
 </script>
