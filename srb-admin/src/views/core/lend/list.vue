@@ -57,7 +57,27 @@ export default{
         lendApi.getList().then((reponse)=>{
             this.list=reponse.data.list
         })
-    }
+    },
+    makeLoan(leanId) {
+      this.$confirm("确定放款吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          return lendApi.makeLoan(leanId);
+        })
+        .then((response) => {
+          this.fetchData();
+          this.$message.success("放款成功");
+        })
+        .catch((error) => {
+          if (error === "cancel") {
+            this.$message.info("取消放款");
+          }
+        });
+    },
+
    }
 }
 </script>

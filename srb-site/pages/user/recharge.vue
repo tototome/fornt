@@ -63,7 +63,7 @@ export default {
     methods: {
         //提交表单到尚融宝  
         //尚融宝生成汇付宝表单到汇付宝      
-        commitCharge(){
+      commitCharge(){
       this.$alert(
         '<div style="size: 18px;color: red;">您即将前往汇付宝充值</div>',
         '前往汇付宝资金托管平台',

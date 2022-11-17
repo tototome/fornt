@@ -37,7 +37,7 @@ export default {
     if (this.$route.params.id) {
       this.integralGrade.id = this.$route.params.id;
       integralGradeApi.getById(this.integralGrade.id).then((response) => {
-        this.$message.success("回显成功");
+        this.$message.success("回显"+response.message);
         this.integralGrade = response.data.integralGrade;
       });
     }
